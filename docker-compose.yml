@@ -1,0 +1,19 @@
+version: '2'
+services:
+  wekan:
+    image: mquandalle/wekan
+    links: 
+      - wekandb
+    environment:
+      - MONGO_URL=mongodb://wekandb/wekan
+      - ROOT_URL=http://esdtool.intra.kbt-global.com:8989
+    ports:
+      - 8989:8080 # 外部公開ポート番号 : コンテナのポート番号
+    restart: always 
+
+
+  wekandb:
+    image: mongo:4.1.5
+    volumes:
+      - ./db_data:/data/db
+    restart: always
